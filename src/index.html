@@ -1,14 +1,105 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="stylesheet" href="assets/styles.css">
-  </head>
-  <body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lounas listoja">
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;800&display=swap" rel="stylesheet">
+  <title>Lounari</title>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="">Etusivu</a></li>
+      <li><a href="">Ruokalistat</a></li>
+      <li><a href="">Ravintolat</a></li>
+      <li><a href="">Yhteystiedot</a></li>
+    </ul>
+
+    <form action="#">
+      <button class="search-button" id="search-button" aria-label="search button" name="search-button" type="submit"><svg>
+          <image href="/assets/images/noun_Search_781957.svg""></image></svg></button>
+        <input type=" search" class="search-data" id="search" name="search" placeholder="Hae ravintolan nimellä..." />
+      </form>
+  </nav>
+
+  <header>
+    <h1>Lounari.<br />
+      <p id="slogan">Missä tänään syötäisiin?</p>
+    </h1>
+    <img src="/assets/images/black-frying-pan-with-spaghetti-sauce-near-brown-wooden-691114_new.jpg" alt="he" loading="lazy" />
+  </header>
+
+  <section id="leipateksti">
     <p>
-      Hello! Open the developer tools, please.<br />
-      Start by editing the files in <code>src/</code> folder.
+      Missä tänään syötäisiin? Tuttu tarina ennen lounashetkeä.<br />
+      Palvelu etsii lähelläsi olevat lounaspaikat, sekä näyttää niiden
+      päivittäisen lounaslistan.<br />
+      Viikottaiset lounaslistat ovat myös käytettävissäsi. Pääset niihin
+      klikkaamalla ravintolan logoa.
     </p>
-  </body>
+  </section>
+
+  <div class="grid-container">
+
+    <div class="grid-item">
+      <div id="gridtest">
+        <img src="" alt="img" />
+
+        <section>
+          <h5>Metropolia Myyrmäki<span class="location"><svg>
+                <image xlink:href="/assets/images/noun_Location_3034776.svg"></image>
+              </svg>900m</span></h5>
+          <ul class="ruokalista">
+            <li>Kotiruoka 1<br>
+              Jauhelihalasagnettea</li>
+            <li>Kotiruoka 2<br> Kalkkunapastakastiketta ja täyjyväpastaa</li>
+            <li>Vegaani<br>Vegaani aurinkokuivattutomaatti-soijapastaa</li>
+            <li>Kasviskeitto<br>Tomaatti-korianterikeittoa, lisäkesalaatti kahdella napaksella</li>
+            <li>Jälkiruoka<br>Hedelmäjogurttia</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <div class="grid-item">
+      <div id="gridtest">
+        <img src="" alt="img" />
+
+        <section>
+          <h5>Metropolia Karamalmi <span class="location"><svg>
+                <image xlink:href="/assets/images/noun_Location_3034776.svg"></image>
+              </svg>9km</span></h5>
+          <ul class="ruokalista">
+            <li>Kotiruoka 1<br>
+              Jauhelihalasagnettea</li>
+            <li>Kotiruoka 2<br> Kalkkunapastakastiketta ja täyjyväpastaa</li>
+            <li>Vegaani<br>Vegaani aurinkokuivattutomaatti-soijapastaa</li>
+            <li>Kasviskeitto<br>Tomaatti-korianterikeittoa, lisäkesalaatti kahdella napaksella</li>
+            <li>Jälkiruoka<br>Hedelmäjogurttia</li>
+          </ul>
+        </section>
+        <!--<div class="location">
+            <img src="images/noun_Location_3034776.svg" alt="location" />
+          </div>-->
+      </div>
+    </div>
+
+    <div class="grid-item">
+      <div id="addNew"><button><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1" x="0px" y="0px" viewBox="0 0 128 160" style="enable-background:new 0 0 128 128;"
+            xml:space="preserve">
+            <g>
+              <path
+                d="M64,1L64,1C29.2,1,1,29.2,1,64s28.2,63,63,63h0c34.8,0,63-28.2,63-63S98.8,1,64,1z M94,69H69v25H59V69H34V59h25V34h10v25   h25V69z" />
+            </g>
+          </svg>Lisää ravintola</button></div>
+    </div>
+  </div>
+</body>
+
 </html>
