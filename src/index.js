@@ -1,22 +1,9 @@
-ruokalista = document.querySelector(".ruokalista");
+import LunchMenu from "./assets/sodexo-day-example.json";
 
-const coursesEn = [
-  "Hamburger, cream sauce and poiled potates",
-  "Goan style fish curry and whole grain rice",
-  "Vegan Chili sin carne and whole grain rice",
-  "Broccoli puree soup, side salad with two napas",
-  "Lunch baguette with BBQ-turkey filling",
-  "Cheese / Chicken / Vege / Halloum burger and french fries",
-];
+var ruokalista = document.querySelector(".ruokalista");
 
-const coursesFi = [
-  "Jauhelihapihvi, ruskeaa kermakastiketta ja keitettyä perunaa",
-  "Goalaista kalacurrya ja täysjyväriisiä",
-  "vegaani Chili sin carne ja täysjyväriisi",
-  "Parsakeittoa,lisäkesalaatti kahdella napaksella",
-  "Lunch baguette with BBQ-turkey filling",
-  "Juusto / Kana / Kasvis / Halloumi burgeri ja ranskalaiset",
-];
+let coursesEn = [];
+let coursesFi = [];
 
 let currentLang = "FI";
 
@@ -26,14 +13,14 @@ coursesFi.forEach(function (ruoka) {
 
 document.getElementsByClassName("ruokalista").innerHTML = ruokalista;
 
-printMenu = (menu) => {
+const printMenu = (menu) => {
   ruokalista.innerHTML = "";
   menu.forEach(function (ruoka) {
     ruokalista.innerHTML += "<li>" + ruoka + "</li>";
   });
 };
 
-myFunction = () => {
+const myFunction = () => {
   document.getElementById("myDropdown").classList.toggle("show");
 };
 
@@ -50,7 +37,7 @@ window.onclick = function (event) {
   }
 };
 
-valitsekieli = (lang) => {
+const valitsekieli = (lang) => {
   switch (lang) {
     case "EN":
       printMenu(coursesEn);
@@ -67,7 +54,7 @@ valitsekieli = (lang) => {
 
 let currentDirection = "ASC";
 
-sortArrayAlpha = (menu, direction) => {
+const sortArrayAlpha = (menu, direction) => {
   if (currentDirection === "ASC") {
     return menu.sort();
   } else if (currentDirection === "DESC") {
@@ -75,7 +62,7 @@ sortArrayAlpha = (menu, direction) => {
   }
 };
 
-sortAlphabetically = () => {
+const sortAlphabetically = () => {
   if (currentDirection === "ASC") {
     currentDirection = "DESC";
   } else {
@@ -91,7 +78,39 @@ sortAlphabetically = () => {
   }
 };
 
-pickRandomDish = () => {
-  var dish = coursesFi[Math.floor(Math.random() * coursesFi.length)];
+ const pickRandomDish = () => {
+  if (currentLang == "EN") {
+    var dish = coursesEn[Math.floor(Math.random() * coursesEn.length)];
+  } else {
+    var dish = coursesFi[Math.floor(Math.random() * coursesFi.length)];
+  }
   alert(dish);
 };
+
+const parseSodexoMenu = (sodexoDailyMenu) => {
+  const courses = Object.values(sodexoDailyMenu);
+  for (const course of courses) {
+    coursesEn.push(course.title_en);
+    coursesFi.push(course.title_fi);
+  }
+};
+
+const valitsekieliFi = () => {
+  valitsekieli('FI');
+};
+
+const valitsekieliEn = () => {
+  valitsekieli('EN');
+};
+
+const init = () => {
+  parseSodexoMenu(LunchMenu.courses);
+  document.querySelector('#sortBtn').addEventListener('click',sortAlphabetically);
+  document.querySelector('#randomBtn').addEventListener('click',pickRandomDish);
+  document.querySelector('#myDropdownbtn').addEventListener('click',myFunction);
+  document.querySelector('#LangFi').addEventListener('click',valitsekieliFi);
+  document.querySelector('#LangEn').addEventListener('click',valitsekieliEn);
+  valitsekieli(currentLang);
+};
+
+init();
