@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  <script type="script" src="index.js"></script>
   <nav>
     <ul>
       <li><a href="">Etusivu</a></li>
@@ -21,17 +22,19 @@
     </ul>
 
     <form action="#">
-      <button class="search-button" id="search-button" aria-label="search button" name="search-button" type="submit"><svg>
+      <button class="search-button" id="search-button" aria-label="search button" name="search-button"
+        type="submit"><svg>
           <image href="/assets/images/noun_Search_781957.svg""></image></svg></button>
         <input type=" search" class="search-data" id="search" name="search" placeholder="Hae ravintolan nimellä..." />
-      </form>
+    </form>
   </nav>
 
   <header>
     <h1>Lounari.<br />
       <p id="slogan">Missä tänään syötäisiin?</p>
     </h1>
-    <img src="/assets/images/black-frying-pan-with-spaghetti-sauce-near-brown-wooden-691114_new.jpg" alt="he" loading="lazy" />
+    <img src="/assets/images/black-frying-pan-with-spaghetti-sauce-near-brown-wooden-691114_new.jpg" alt="he"
+      loading="lazy" />
   </header>
 
   <section id="leipateksti">
@@ -44,6 +47,19 @@
     </p>
   </section>
 
+
+  <div class="buttoneita" style="text-align: center; margin: 10px;">
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropbtn" id="myDropdownbtn">Change language</button>
+      <div id="myDropdown" class="dropdown-content">
+        <button onclick="valitsekieli('FI');">FI</button>
+        <button onclick="valitsekieli('EN');">EN</button>
+      </div>
+    </div>
+    <button id="sortBtn" onclick="sortAlphabetically();">Sort alphapetically</button>
+    <button id="randomBtn" onclick="pickRandomDish();">Random dish</button>
+  </div>
+
   <div class="grid-container">
 
     <div class="grid-item">
@@ -55,12 +71,6 @@
                 <image xlink:href="/assets/images/noun_Location_3034776.svg"></image>
               </svg>900m</span></h5>
           <ul class="ruokalista">
-            <li>Kotiruoka 1<br>
-              Jauhelihalasagnettea</li>
-            <li>Kotiruoka 2<br> Kalkkunapastakastiketta ja täyjyväpastaa</li>
-            <li>Vegaani<br>Vegaani aurinkokuivattutomaatti-soijapastaa</li>
-            <li>Kasviskeitto<br>Tomaatti-korianterikeittoa, lisäkesalaatti kahdella napaksella</li>
-            <li>Jälkiruoka<br>Hedelmäjogurttia</li>
           </ul>
         </section>
       </div>
@@ -100,6 +110,7 @@
           </svg>Lisää ravintola</button></div>
     </div>
   </div>
+
 </body>
 
 </html>
