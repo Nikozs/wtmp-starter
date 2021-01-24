@@ -1,22 +1,36 @@
-import LunchMenu from "./assets/sodexo-day-example.json";
+//import LunchMenu from "./assets/sodexo-day-example.json";
+import SodexoData from './modules/sodexo-data';
+import FazerData from './modules/fazer-data';
 
 var ruokalista = document.querySelector(".ruokalista");
+var ruokalistafazer = document.querySelector(".ruokalistafazer");
 
-let coursesEn = [];
-let coursesFi = [];
 
 let currentLang = "FI";
 
-coursesFi.forEach(function (ruoka) {
+SodexoData.coursesFi.forEach(function (ruoka) {
   ruokalista.innerHTML += "<li>" + ruoka + "</li>";
 });
 
 document.getElementsByClassName("ruokalista").innerHTML = ruokalista;
 
+FazerData.fazercoursesFi.forEach(function (ruoka) {
+  ruokalistafazer.innerHTML += "<li>" + ruoka + "</li>";
+});
+
+document.getElementsByClassName("ruokalistafazer").innerHTML = ruokalistafazer;
+
 const printMenu = (menu) => {
   ruokalista.innerHTML = "";
   menu.forEach(function (ruoka) {
     ruokalista.innerHTML += "<li>" + ruoka + "</li>";
+  });
+};
+
+const printFazerMenu = (menu) => {
+  ruokalistafazer.innerHTML = "";
+  menu.forEach(function (ruoka) {
+    ruokalistafazer.innerHTML += "<li>" + ruoka + "</li>";
   });
 };
 
@@ -40,11 +54,13 @@ window.onclick = function (event) {
 const valitsekieli = (lang) => {
   switch (lang) {
     case "EN":
-      printMenu(coursesEn);
+      printMenu(SodexoData.coursesEn);
+      printFazerMenu(FazerData.fazercoursesEn);
       currentLang = "EN";
       break;
     case "FI":
-      printMenu(coursesFi);
+      printMenu(SodexoData.coursesFi);
+      printFazerMenu(FazerData.fazercoursesFi);
       currentLang = "FI";
       break;
     default:
@@ -55,14 +71,15 @@ const valitsekieli = (lang) => {
 let currentDirection = "ASC";
 
 const sortArrayAlpha = (menu, direction) => {
-  if (currentDirection === "ASC") {
+  if (direction === "ASC") {
     return menu.sort();
-  } else if (currentDirection === "DESC") {
+  } else if (direction === "DESC") {
     return menu.reverse();
   }
 };
 
 const sortAlphabetically = () => {
+
   if (currentDirection === "ASC") {
     currentDirection = "DESC";
   } else {
@@ -70,30 +87,29 @@ const sortAlphabetically = () => {
   }
 
   if (currentLang == "FI") {
-    let menu = sortArrayAlpha(coursesFi, currentDirection);
+    let menu = sortArrayAlpha(SodexoData.coursesFi, currentDirection);
     printMenu(menu);
+    let fmenu = sortArrayAlpha(FazerData.fazercoursesFi, currentDirection);
+    printFazerMenu(fmenu);
   } else {
-    let menu = sortArrayAlpha(coursesEn, currentDirection);
+    let menu = sortArrayAlpha(SodexoData.coursesEn, currentDirection);
     printMenu(menu);
+    let fmenu = sortArrayAlpha(FazerData.fazercoursesEn, currentDirection);
+    printFazerMenu(fmenu);
   }
 };
 
  const pickRandomDish = () => {
   if (currentLang == "EN") {
-    var dish = coursesEn[Math.floor(Math.random() * coursesEn.length)];
+    var dish = SodexoData.coursesEn[Math.floor(Math.random() * SodexoData.coursesEn.length)];
+    var dishf = FazerData.fazercoursesEn[Math.floor(Math.random() * FazerData.fazercoursesEn.length)];
   } else {
-    var dish = coursesFi[Math.floor(Math.random() * coursesFi.length)];
+    var dish = SodexoData.coursesFi[Math.floor(Math.random() * SodexoData.coursesFi.length)];
+    var dishf = FazerData.fazercoursesFi[Math.floor(Math.random() * FazerData.fazercoursesFi.length)];
   }
-  alert(dish);
+  alert("Metropolia: "+dish+ "\r\n\r\nFazer: "+dishf);
 };
 
-const parseSodexoMenu = (sodexoDailyMenu) => {
-  const courses = Object.values(sodexoDailyMenu);
-  for (const course of courses) {
-    coursesEn.push(course.title_en);
-    coursesFi.push(course.title_fi);
-  }
-};
 
 const valitsekieliFi = () => {
   valitsekieli('FI');
@@ -104,7 +120,6 @@ const valitsekieliEn = () => {
 };
 
 const init = () => {
-  parseSodexoMenu(LunchMenu.courses);
   document.querySelector('#sortBtn').addEventListener('click',sortAlphabetically);
   document.querySelector('#randomBtn').addEventListener('click',pickRandomDish);
   document.querySelector('#myDropdownbtn').addEventListener('click',myFunction);

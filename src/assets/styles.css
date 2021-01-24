@@ -208,6 +208,18 @@ section > p {
   font-family: "Lato Regular";
 }
 
+.ruokalistafazer {
+  font-size: 10px;
+  text-align: left;
+  padding-left: 5px;
+}
+
+.ruokalistafazer li {
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-family: "Lato Regular";
+}
+
 .grid-item img {
   border: 1px solid;
   margin-left: 20px;
