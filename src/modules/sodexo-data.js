@@ -13,5 +13,11 @@ const parseSodexoMenu = (sodexoDailyMenu) => {
 
 parseSodexoMenu(LunchMenu.courses);
 
-const SodexoData = {coursesEn, coursesFi};
+const getDailyMenu = (lang, dayOfWeek = 2) => {
+  return (lang === 'fi') ? coursesFi : coursesEn;
+};
+
+
+
+const SodexoData = {coursesEn, coursesFi, getDailyMenu};
 export default SodexoData;

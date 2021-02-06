@@ -1,0 +1,127 @@
+@media only screen and (max-width: 1250px) {
+  .grid-container {
+    grid-template-columns: 96%;
+    margin-bottom: 2%;
+  }
+
+  .grid-item {
+    margin: auto;
+  }
+
+  #leipateksti {
+      font-size: 20px;
+  }
+}
+
+
+@media only screen and (max-width: 710px) {
+/* Style the navigation menu */
+nav {
+  overflow: hidden;
+  position: relative;
+}
+
+nav .logo {
+  display: flex;
+}
+
+/* Hide the links inside the navigation menu (except for logo/home) */
+nav #items {
+  display: none;
+  margin: auto;
+  text-align: center;
+  flex-direction: column;
+}
+
+nav li:last-child {
+    margin: auto;
+}
+
+nav form {
+  /* display: none; */
+}
+
+/* Style navigation menu links */
+nav a {
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Style the hamburger menu */
+nav .icon {
+  background: rgb(255, 255, 255);
+  display: block;
+  position: absolute;
+  right: 0;
+  /* color: black; */
+  top: 0;
+  padding: inherit;
+}
+
+
+/* Add a grey background color on mouse-over */
+nav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the active link (or home/logo) */
+.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+
+.left-half > h1 {
+    font-size: 35px;
+    padding: 50px 0;
+}
+
+#slogan {
+    font-size: 20px;
+}
+
+
+#leipateksti {
+  font-size: 16px;
+}
+}
+
+@media only screen and (max-width: 600px) {
+nav {
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+nav > ul {
+  flex-direction: column;
+}
+
+nav > li {
+  flex-basis: 50%;
+}
+
+.grid-container {
+  margin: 0%;
+}
+
+#gridtest {
+  height: auto;
+  width: 100%;
+  /*height: 320px;*/
+}
+
+#addNew {
+  height: 200px;
+  text-align: left;
+}
+}
+
+@media only screen and (max-width: 400px) {
+nav > li {
+  flex-basis: 100%;
+}
+.search-data {
+  order: 1;
+}
+}

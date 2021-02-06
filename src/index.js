@@ -1,131 +1,96 @@
-//import LunchMenu from "./assets/sodexo-day-example.json";
 import SodexoData from './modules/sodexo-data';
 import FazerData from './modules/fazer-data';
 
-var ruokalista = document.querySelector(".ruokalista");
-var ruokalistafazer = document.querySelector(".ruokalistafazer");
+let currentLang = 'fi';
 
-
-let currentLang = "FI";
-
-SodexoData.coursesFi.forEach(function (ruoka) {
-  ruokalista.innerHTML += "<li>" + ruoka + "</li>";
-});
-
-document.getElementsByClassName("ruokalista").innerHTML = ruokalista;
-
-FazerData.fazercoursesFi.forEach(function (ruoka) {
-  ruokalistafazer.innerHTML += "<li>" + ruoka + "</li>";
-});
-
-document.getElementsByClassName("ruokalistafazer").innerHTML = ruokalistafazer;
-
-const printMenu = (menu) => {
-  ruokalista.innerHTML = "";
-  menu.forEach(function (ruoka) {
-    ruokalista.innerHTML += "<li>" + ruoka + "</li>";
-  });
-};
-
-const printFazerMenu = (menu) => {
-  ruokalistafazer.innerHTML = "";
-  menu.forEach(function (ruoka) {
-    ruokalistafazer.innerHTML += "<li>" + ruoka + "</li>";
-  });
-};
-
-const myFunction = () => {
-  document.getElementById("myDropdown").classList.toggle("show");
-};
-
-window.onclick = function (event) {
-  if (!event.target.matches(".dropbtn")) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains("show")) {
-        openDropdown.classList.remove("show");
-      }
-    }
+/**
+ * Displays lunch menu items as html list
+ *
+ * @param {Array} menuData - Lunch menu array
+ * @param {string} restaurant - element target id
+ */
+const renderMenu = (menuData, restaurant) => {
+  const list = document.querySelector('#' + restaurant);
+  list.innerHTML = '';
+  for (const item of menuData) {
+    const listItem = document.createElement('li');
+    listItem.textContent = item;
+    list.appendChild(listItem);
   }
 };
 
-const valitsekieli = (lang) => {
-  switch (lang) {
-    case "EN":
-      printMenu(SodexoData.coursesEn);
-      printFazerMenu(FazerData.fazercoursesEn);
-      currentLang = "EN";
-      break;
-    case "FI":
-      printMenu(SodexoData.coursesFi);
-      printFazerMenu(FazerData.fazercoursesFi);
-      currentLang = "FI";
-      break;
-    default:
-      printFi();
+/**
+ * Switch app lang en/fi
+ */
+const switchLanguage = () => {
+  if (currentLang === 'fi') {
+    currentLang = 'en';
+  } else {
+    currentLang = 'fi';
   }
+  renderMenu(SodexoData.getDailyMenu(currentLang), 'sodexo');
+  renderMenu(FazerData.getDailyMenu(currentLang), 'fazer');
+  console.log('change language to: ', currentLang);
 };
 
-let currentDirection = "ASC";
+/**
+ * Sorts menu alphapetically
+ *
+ * @param {Array} menu
+ * @param {string} order
+ * @returns Sorted menu array
+ */
+const sortMenu = (menu, order) => {
+  if (order == 'DESC') {
 
-const sortArrayAlpha = (menu, direction) => {
-  if (direction === "ASC") {
+  console.log('ord: ' + order);
+    return menu.sort().reverse();
+  } else {
+
+  console.log('ord: ' + order);
     return menu.sort();
-  } else if (direction === "DESC") {
-    return menu.reverse();
   }
+
 };
 
-const sortAlphabetically = () => {
+/**
+ * Eventhandler for sort menu button
+ */
+let currentDirection = "ASC";
+const renderSortedMenu = () => {
 
   if (currentDirection === "ASC") {
     currentDirection = "DESC";
   } else {
     currentDirection = "ASC";
   }
-
-  if (currentLang == "FI") {
-    let menu = sortArrayAlpha(SodexoData.coursesFi, currentDirection);
-    printMenu(menu);
-    let fmenu = sortArrayAlpha(FazerData.fazercoursesFi, currentDirection);
-    printFazerMenu(fmenu);
-  } else {
-    let menu = sortArrayAlpha(SodexoData.coursesEn, currentDirection);
-    printMenu(menu);
-    let fmenu = sortArrayAlpha(FazerData.fazercoursesEn, currentDirection);
-    printFazerMenu(fmenu);
-  }
+console.log('curr: ' + currentDirection);
+    renderMenu(sortMenu(SodexoData.getDailyMenu(currentLang), currentDirection), 'sodexo');
+    renderMenu(sortMenu(FazerData.getDailyMenu(currentLang), currentDirection), 'fazer');
 };
 
- const pickRandomDish = () => {
-  if (currentLang == "EN") {
-    var dish = SodexoData.coursesEn[Math.floor(Math.random() * SodexoData.coursesEn.length)];
-    var dishf = FazerData.fazercoursesEn[Math.floor(Math.random() * FazerData.fazercoursesEn.length)];
-  } else {
-    var dish = SodexoData.coursesFi[Math.floor(Math.random() * SodexoData.coursesFi.length)];
-    var dishf = FazerData.fazercoursesFi[Math.floor(Math.random() * FazerData.fazercoursesFi.length)];
-  }
-  alert("Metropolia: "+dish+ "\r\n\r\nFazer: "+dishf);
+/**
+ * Picks a random dish from lunch menu array
+ *
+ * @param {Array} menu
+ * @returns string dish name
+ */
+const pickRandomDish = (menu) => {
+  const randomIndex = Math.floor(Math.random() * menu.length);
+  return menu[randomIndex];
 };
 
-
-const valitsekieliFi = () => {
-  valitsekieli('FI');
+const displayRandomDish = () => {
+  alert(pickRandomDish(SodexoData.getDailyMenu(currentLang)));
 };
 
-const valitsekieliEn = () => {
-  valitsekieli('EN');
-};
 
 const init = () => {
-  document.querySelector('#sortBtn').addEventListener('click',sortAlphabetically);
-  document.querySelector('#randomBtn').addEventListener('click',pickRandomDish);
-  document.querySelector('#myDropdownbtn').addEventListener('click',myFunction);
-  document.querySelector('#LangFi').addEventListener('click',valitsekieliFi);
-  document.querySelector('#LangEn').addEventListener('click',valitsekieliEn);
-  valitsekieli(currentLang);
+  document.querySelector('#switchBtn').addEventListener('click', switchLanguage);
+  document.querySelector('#sortBtn').addEventListener('click', renderSortedMenu);
+  document.querySelector('#randomBtn').addEventListener('click', displayRandomDish);
+  renderMenu(SodexoData.getDailyMenu(currentLang), 'sodexo');
+  renderMenu(FazerData.getDailyMenu(currentLang), 'fazer');
 };
 
 init();

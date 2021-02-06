@@ -6,35 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Lounas listoja">
   <link rel="stylesheet" href="./assets/styles.css" />
+  <link rel="stylesheet" media="screen" href="./assets/responsive.css" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/v4-shims.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;800&display=swap" rel="stylesheet">
+  <script src="index.js"></script>
   <title>Lounari</title>
 </head>
 
 <body>
-  <script type="script" src="index.js"></script>
   <nav>
-    <ul>
+
+    <div class="logo">
+      <a href="#"><!--<img src="" alt="logo">--><i class="fas fa-home"></i></a>
+    </div>
+
+
+    <ul id="items">
       <li><a href="">Etusivu</a></li>
       <li><a href="">Ruokalistat</a></li>
       <li><a href="">Ravintolat</a></li>
       <li><a href="">Yhteystiedot</a></li>
+      <li>
+        <form action="#">
+          <button class="search-button" id="search-button" aria-label="search button" name="search-button"
+            type="submit"><svg>
+              <image href="./assets/images/noun_Search_781957.svg""></image></svg></button>
+        <input type=" search" class="search-data" id="search" name="search" placeholder="Hae ravintolan nimellä..." />
+        </form>
+      </li>
     </ul>
 
-    <form action="#">
-      <button class="search-button" id="search-button" aria-label="search button" name="search-button"
-        type="submit"><svg>
-          <image href="./assets/images/noun_Search_781957.svg""></image></svg></button>
-        <input type=" search" class="search-data" id="search" name="search" placeholder="Hae ravintolan nimellä..." />
-    </form>
+    <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
+      <i class="fa fa-bars"></i></a>
+
   </nav>
 
   <header>
-    <h1>Lounari.<br />
-      <p id="slogan">Missä tänään syötäisiin?</p>
-    </h1>
-    <img src="./assets/images/black-frying-pan-with-spaghetti-sauce-near-brown-wooden-691114_new.jpg" alt="he"
-      loading="lazy" />
+    <div class="left-half">
+      <h1>Lounari.<br />
+        <p id="slogan">Missä tänään syötäisiin?</p>
+      </h1>
+    </div>
+
+
+    <div class="right-half">
+      <img src="./assets/images/black-frying-pan-with-spaghetti-sauce-near-brown-wooden-691114_new.jpg" alt="he"
+        loading="lazy" />
+    </div>
   </header>
 
   <section id="leipateksti">
@@ -47,7 +68,7 @@
     </p>
   </section>
 
-  <div class="buttoneita" style="text-align: center; margin: 10px;">
+  <!--<div class="buttoneita" style="text-align: center; margin: 10px;">
     <div class="dropdown">
       <button class="dropbtn" id="myDropdownbtn">Change language</button>
       <div id="myDropdown" class="dropdown-content">
@@ -56,46 +77,45 @@
       </div>
     </div>
     <button id="sortBtn" >Sort alphapetically</button>
-    <button id="randomBtn" >Random dish</button>
-  </div>
+    <button id="randomBtn" >Random dish</button>-->
+
+    <div class="buttonei">
+      <button class="dropbtn" id="switchBtn">Switch language</button>
+      <button id="sortBtn">Sort menu</button>
+      <button id="randomBtn">Pick random dish</button>
+    </div>
 
   <div class="grid-container">
 
     <div class="grid-item">
-      <div id="gridtest">
+     <!-- <div id="gridtest"> -->
         <img src="" alt="img" />
 
         <section>
           <h5>Metropolia Myyrmäki<span class="location"><svg>
                 <image xlink:href="./assets/images/noun_Location_3034776.svg"></image>
               </svg>900m</span></h5>
-          <ul class="ruokalista">
+          <ul id="sodexo" class="restaurant">
           </ul>
         </section>
-      </div>
+     <!--</div>-->
     </div>
 
     <div class="grid-item">
-      <div id="gridtest">
+      <!--<div id="gridtest">-->
         <img src="" alt="img" />
 
         <section>
-          <h5>Fazer<span class="location"><svg>
+          <h5>Metropolia Karamalmi <span class="location"><svg>
                 <image xlink:href="./assets/images/noun_Location_3034776.svg"></image>
               </svg>9km</span></h5>
-          <ul class="ruokalistafazer">
-            <!-- <li>Kotiruoka 1<br>
-              Jauhelihalasagnettea</li>
-            <li>Kotiruoka 2<br> Kalkkunapastakastiketta ja täyjyväpastaa</li>
-            <li>Vegaani<br>Vegaani aurinkokuivattutomaatti-soijapastaa</li>
-            <li>Kasviskeitto<br>Tomaatti-korianterikeittoa, lisäkesalaatti kahdella napaksella</li>
-            <li>Jälkiruoka<br>Hedelmäjogurttia</li> -->
+          <ul id="fazer" class="restaurant">
           </ul>
         </section>
         <!--<div class="location">
             <img src="images/noun_Location_3034776.svg" alt="location" />
           </div>-->
-      </div>
+      <!-- </div> -->
     </div>
 
     <div class="grid-item">
@@ -106,10 +126,9 @@
               <path
                 d="M64,1L64,1C29.2,1,1,29.2,1,64s28.2,63,63,63h0c34.8,0,63-28.2,63-63S98.8,1,64,1z M94,69H69v25H59V69H34V59h25V34h10v25   h25V69z" />
             </g>
-          </svg>Lisää ravintola</button></div>
+          </svg><p>Lisää ravintola</p></button></div>
     </div>
   </div>
-
 </body>
 
 </html>

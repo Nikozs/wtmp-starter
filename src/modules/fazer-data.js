@@ -4,34 +4,27 @@ import FazerLunchMenuFin from "../assets/fazer-week-example.json";
 let fazercoursesEn = [];
 let fazercoursesFi = [];
 
-const parseFazerMenuEng = (fazerDailyMenu) => {
-   const fazLunchMenus = Object.values(fazerDailyMenu);
-
-   for (const days of fazLunchMenus[1]) {
-     for (const Menus of  Object.values(days.SetMenus)){
-       for (const Meal of Menus.Meals){
-     const meal=Object.entries(Meal);
-     fazercoursesEn.push(Meal.Name);
-       }
-     }
-   }
+const getDailyMenu = (lang, dayOfWeek = 0) => {
+  return (lang === 'fi') ?
+    parseDailyMenu(FazerLunchMenuFin, dayOfWeek)
+    :
+    parseDailyMenu(FazerLunchMenuEng, dayOfWeek);
 };
 
-const parseFazerMenuFin = (fazerDailyMenu) => {
-  const fazLunchMenus = Object.values(fazerDailyMenu);
-  for (const days of fazLunchMenus[1]) {
-    for (const Menus of  Object.values(days.SetMenus)){
-      for (const Meal of Menus.Meals){
-    const meal=Object.entries(Meal);
-    fazercoursesFi.push(Meal.Name);
-      }
-    }
+const parseDailyMenu = (menuData, dayOfWeek) => {
 
-  }
+  let dailyMenu = menuData.LunchMenus[dayOfWeek].SetMenus.map(setMenu => {
+    let mealName = setMenu.Name;
+    let dishes = setMenu.Meals.map(dish => {
+      return `${dish.Name} (${dish.Diets.join(', ')})`;
+    });
+    return mealName ? `${mealName}: ${dishes.join(', ')}` : dishes.join(', ');
+  });
+  return dailyMenu;
 };
 
-parseFazerMenuEng(FazerLunchMenuEng);
-parseFazerMenuFin(FazerLunchMenuFin);
 
-const FazerData = { fazercoursesEn, fazercoursesFi };
+
+
+const FazerData = { fazercoursesEn, fazercoursesFi, getDailyMenu };
 export default FazerData;
