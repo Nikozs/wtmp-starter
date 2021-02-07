@@ -1,15 +1,5 @@
-import FazerLunchMenuEng from "../assets/fazer-week-example-en.json";
-import FazerLunchMenuFin from "../assets/fazer-week-example.json";
-
-let fazercoursesEn = [];
-let fazercoursesFi = [];
-
-const getDailyMenu = (lang, dayOfWeek = 0) => {
-  return (lang === 'fi') ?
-    parseDailyMenu(FazerLunchMenuFin, dayOfWeek)
-    :
-    parseDailyMenu(FazerLunchMenuEng, dayOfWeek);
-};
+const weeklyUrlFi = 'https://www.fazerfoodco.fi/api/restaurant/menu/week?language=fi&restaurantPageId=270540&weekDate=2020-01-14';
+const weeklyUrlEn = 'https://www.fazerfoodco.fi/api/restaurant/menu/week?language=en&restaurantPageId=270540&weekDate=2020-01-14';
 
 const parseDailyMenu = (menuData, dayOfWeek) => {
 
@@ -24,7 +14,23 @@ const parseDailyMenu = (menuData, dayOfWeek) => {
 };
 
 
+const getDailyMenu = (menuData, lang, dayOfWeek = 1) => {
+  let menu= [];
+  try {
+  dayOfWeek -= 1;
+  if (dayOfWeek === -1) {
+    dayOfWeek = 0;
+  }
+  console.log('parsing weekday #', dayOfWeek);
+ menu =parseDailyMenu(menuData, dayOfWeek);
+}
+catch (e)
+{
+  console.log("error:" + e);
+}
+  return menu;
+};
 
+const FazerData = {getDailyMenu, weeklyUrlFi, weeklyUrlEn};
 
-const FazerData = { fazercoursesEn, fazercoursesFi, getDailyMenu };
 export default FazerData;
