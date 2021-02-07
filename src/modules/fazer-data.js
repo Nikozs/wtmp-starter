@@ -21,7 +21,6 @@ const getDailyMenu = (menuData, lang, dayOfWeek = 1) => {
   if (dayOfWeek === -1) {
     dayOfWeek = 0;
   }
-  console.log('parsing weekday #', dayOfWeek);
  menu =parseDailyMenu(menuData, dayOfWeek);
 }
 catch (e)
