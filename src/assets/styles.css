@@ -11,8 +11,6 @@
   /* Contrast colors */
 
   --purple: #7800c9;
-
-
 }
 
 * {
@@ -191,7 +189,7 @@ header {
 
 section > p {
   text-align: center;
-  margin: 5%;
+  margin: 3%;
   font-family: "Lato Regular";
   /*font-weight: bold;*/
 }
@@ -220,6 +218,10 @@ section > p {
 
 .grid-item:nth-child(even) {
   margin-right: auto;
+}
+
+.grid-item:last-child {
+  border: 2px dotted var(--red);
 }
 
 .grid-item {
@@ -320,7 +322,7 @@ section > p {
 }
 
 #addNew {
-  border: 1px dotted var(--red);
+  /* border: 1px dotted var(--red); */
   border-radius: 5px;
   background: var(--lightGrey);
   height: 200px;
@@ -366,6 +368,8 @@ margin: 5px;
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding-bottom: 50px;
+  flex-wrap: wrap;
 }
 
 
@@ -445,7 +449,95 @@ margin: 5px;
   border-radius: 10px;
 }
 
+#toggleTheme {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 4px;
+}
+
 /* Dropdown button on hover & focus */
 #sortBtn:hover, #sortBtn:focus {
   background-color: #2980B9;
+}
+
+
+
+/* Dark theme */
+ .dark-theme {
+   background-color: #131313;
+ }
+
+ .dark-theme nav {
+  background-color: #040404;
+ }
+
+ .dark-theme nav form {
+ color: #040404;
+ }
+
+ .dark-theme nav a {
+  color: #ffffff;
+ }
+
+ .dark-theme #leipateksti {
+   color: var(--white);
+ }
+
+ .dark-theme .grid-item {
+  background-color: #262626;
+  border-color: #fff;
+ }
+
+ .dark-theme .grid-item img {
+ border-color: #ffffff;
+ }
+
+ .dark-theme .grid-item:last-child {
+  border: 2px dotted var(--white);
+ }
+
+ .dark-theme #addNew button, .dark-theme #addNew svg, .dark-theme h5, .dark-theme .restaurant {
+  color: #fff;
+  fill: #fff;
+ }
+
+ .dark-theme .location svg {
+ filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(180deg) brightness(107%) contrast(103%);
+}
+
+.dark-theme .dropbtn, .dark-theme #sortBtn, .dark-theme #randomBtn, .dark-theme #toggleTheme {
+   background-color: #1A4D6F;
+  /* background-color: #5be54e;
+  color: #040404; */
+}
+
+.dark-theme nav svg {
+   filter: invert(70%) sepia(86%) saturate(411%) hue-rotate(59deg) brightness(97%) contrast(87%);
+}
+
+.dark-theme nav form .search-data {
+	color: var(--white);
+}
+
+.dark-theme nav .icon{
+ background-color: #040404;
+}
+
+.dark-theme nav form {
+  border-color: #ffffff;
+  background-color: #1c1c1c;
+}
+
+.dark-theme nav form button {
+	color: #1c1c1c;
+	background: #1c1c1c;
+}
+
+.dark-theme header {
+  background: #2c8028;
 }

@@ -2,17 +2,67 @@ import SodexoData from "./modules/sodexo-data";
 import FazerData from "./modules/fazer-data";
 import { fetchGetJson } from "./modules/network";
 
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', () => {
-//     navigator.serviceWorker.register('./service-worker.js').then(registration => {
-//       console.log('SW registered: ', registration);
-//     }).catch(registrationError => {
-//       console.log('SW registration failed: ', registrationError);
-//     });
-//   });
-// }
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').then(registration => {
+       console.log('SW registered: ', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+ }
 
 let currentLang = "fi";
+
+const userSettings = {
+theme: 'light'
+};
+
+let defval=localStorage.getItem('userConfig');
+if (!defval) {
+    localStorage.setItem('userConfig', JSON.stringify(userSettings));
+};
+
+
+const updateSettings = () => {
+  localStorage.setItem('userConfig', JSON.stringify(userSettings));
+};
+
+
+const toggleTheme = () => {
+  if (JSON.parse(localStorage.getItem('userConfig')).theme == "light") {
+
+    userSettings.theme = 'dark';
+    document.body.classList = "dark-theme";
+
+    updateSettings();
+
+    console.log('toggleTheme userSettings theme should be dark: ' + JSON.stringify(userSettings));
+    console.log('toggleTheme userConfig theme should be dark: ' +JSON.parse(localStorage.getItem('userConfig')).theme);
+  } else {
+
+    userSettings.theme = 'light';
+    document.body.classList = "";
+
+    updateSettings();
+
+    console.log('toggleTheme userSettings theme should be light: ' + JSON.stringify(userSettings));
+    console.log('toggleTheme userConfig theme should be light: ' +JSON.parse(localStorage.getItem('userConfig')).theme);
+  }
+  // render();
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Displays lunch menu items as html list
@@ -119,7 +169,11 @@ const render = async () => {
     alert("Error getting fazer data");
   }
 };
-
+   if (JSON.parse(localStorage.getItem('userConfig')).theme == "dark") {
+      document.body.classList = "dark-theme";
+    } else {
+      document.body.classList = "";
+    };
 const init = async () => {
   document
     .querySelector("#switchBtn")
@@ -130,8 +184,82 @@ const init = async () => {
   document
     .querySelector("#randomBtn")
     .addEventListener("click", displayRandomDish);
+  document
+    .querySelector("#toggleTheme")
+    .addEventListener("click", toggleTheme);
 
   await render();
 };
 
 init();
+
+
+
+
+
+/* draggable grid items */
+document.addEventListener('DOMContentLoaded', (event) => {
+
+  var dragSrcEl = null;
+
+  function handleDragStart(e) {
+    this.style.opacity = '0.4';
+
+    dragSrcEl = this;
+
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+  }
+
+  function handleDragOver(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+
+    e.dataTransfer.dropEffect = 'move';
+
+    return false;
+  }
+
+  function handleDragEnter(e) {
+    this.classList.add('over');
+  }
+
+  function handleDragLeave(e) {
+    this.classList.remove('over');
+    console.log(items);
+  }
+
+  function handleDrop(e) {
+    if (e.stopPropagation) {
+      e.stopPropagation(); // stops the browser from redirecting.
+    }
+
+    if (dragSrcEl != this) {
+      dragSrcEl.innerHTML = this.innerHTML;
+      this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+
+    return false;
+  }
+
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
+
+    items.forEach(function (item) {
+      item.classList.remove('over');
+    });
+  }
+
+
+  let items = document.querySelectorAll('.grid-item');
+  items.forEach(function(item) {
+    item.addEventListener('dragstart', handleDragStart, false);
+    item.addEventListener('dragenter', handleDragEnter, false);
+    item.addEventListener('dragover', handleDragOver, false);
+    item.addEventListener('dragleave', handleDragLeave, false);
+    item.addEventListener('drop', handleDrop, false);
+    item.addEventListener('dragend', handleDragEnd, false);
+  });
+console.log(items);
+});
